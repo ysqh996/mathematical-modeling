@@ -164,7 +164,8 @@ void Dijkstra(int n, int s, vector<vector<int>> G, vector<bool>& vis, vector<int
 0	0	0	0	0	0	0	0	0	0	245	
 0	0	0	0	0	0	0	0	0	0	0
 */
-```[^3]
+```
+[^3]
 
 [^1]:https://baike.baidu.com/item/%E5%B8%B8%E4%BD%8F%E4%BA%BA%E5%8F%A3/1238278
 
