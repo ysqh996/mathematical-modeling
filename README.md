@@ -10,6 +10,8 @@
 
 数字经济和实体经济深度融合的重要途径是通过数字技术解决实际问题。
 
+>关键词：`matlab` `Gauss` 消元 `Dijkstra`算法
+
 ## 问题分析
 
 ### 对于问题一
@@ -83,9 +85,56 @@
 | $b_{i}$   | $i$ 城市原有的中客车数        |
 | $c_{i}$   | $i$ 城市原有的大客车数      |
 | $d_{i}$   | $i$ 城市原有的特大客车数     |
-| $Ur_{i}$  | $i$ 城市的城镇化率     |
+| $Ur_{i}$  | $i$ 城市的城镇化率    |
 |$Rp_{i}$   | $i$ 城市的常住人口|
+
+## 附录
+
+```
+//最段路代码-Dijkstra算法
+const int INF = 1000000000;
+/*Dijkstra算法解决的是单源最短路径问题，即给定图G(V,E)和起点s(起点又称为源点),
+求从起点s到达其它顶点的最短距离，并将最短距离存储在矩阵d中*/
+void Dijkstra(int n, int s, vector<vector<int>> G, vector<bool>& vis, vector<int>& d)
+{
+       /*
+       param
+       n：           顶点个数
+       s：           源点
+       G：           图的邻接矩阵
+       vis：         标记顶点是否已被访问
+       d：           存储源点s到达其它顶点的最短距离
+       */
+       fill(d.begin(), d.end(), INF);                         //初始化最短距离矩阵，所有为INF
+       d[s] = 0;                                              //起点s到达自身的距离为0
+       for (int i = 0; i < n; ++i)
+       {
+              int u = -1;                                     //找到d[u]最小的u
+              int MIN = INF;                                  //记录最小的d[u]
+              for (int j = 0; j < n; ++j)                     //开始寻找最小的d[u]
+              {
+                     if (vis[j] == false && d[j] < MIN)
+                     {
+                           u = j;
+                           MIN = d[j];
+                     }
+              }
+              //找不到小于INF的d[u]，说明剩下的顶点和起点s不连通
+              if (u == -1)
+                     return;
+              vis[u] = true;                                  //标记u已被访问
+              for (int v = 0; v < n; ++v)
+              {
+                     //遍历全部顶点，若是v未被访问&&u可以到达v&&以u为中介点可使d[v]更优
+                     if (vis[v] == false && d[u] + G[u][v] < d[v])
+                           d[v] = d[u] + G[u][v];             //更新d[v]
+              }
+       }
+}
+```[^3]
 
 [^1]:https://baike.baidu.com/item/%E5%B8%B8%E4%BD%8F%E4%BA%BA%E5%8F%A3/1238278
 
 [^2]:https://www.ndrc.gov.cn/fggz/fzzlgh/gjfzgh/202112/t20211225_1309650.html
+
+[^3]:https://www.csdn.net/tags/OtDagg0sNjEtYmxvZwO0O0OO0O0O.html
